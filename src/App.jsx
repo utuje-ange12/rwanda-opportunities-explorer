@@ -1,11 +1,12 @@
 import { useState } from "react"
+import AddOpportunityForm from "./components/AddOpportunityForm"
 import OpportunityFilters from "./components/OpportunityFilters"
 import OpportunityList from "./components/OpportunityList"
 import Button from "./components/Button"
 import { seedOpportunities } from "./data/seedOpportunities"
 
 export default function App() {
-    const [opportunities] = useState(seedOpportunities)
+    const [opportunities, setOpportunities] = useState(seedOpportunities)
     const [savedIds, setSavedIds] = useState([])
     const [search, setSearch] = useState("")
     const [category, setCategory] = useState("All")
@@ -19,6 +20,12 @@ export default function App() {
                 ? savedIds.filter((savedId) => savedId !== id)
                 : [...savedIds, id]
         )
+    }
+
+    function addOpportunity(newItem) {
+        // Unique permanent ID: one higher than the current largest ID
+        const nextId = opportunities.reduce((max, o) => Math.max(max, o.id), 0) + 1
+        setOpportunities([...opportunities, { id: nextId, ...newItem }]) // immutable add
     }
 
     function resetFilters() {
@@ -39,14 +46,14 @@ export default function App() {
         .filter((o) => !availableOnly || o.availableSeats > 0)
         .filter((o) => !savedOnly || savedIds.includes(o.id))
 
-    // [...visible] makes an independent copy, so sorting never mutates state or props
+    // [...visible] is an independent copy, so sorting never mutates state or props
     const sorted = [...visible].sort((a, b) => {
         if (sortBy === "title") return a.title.localeCompare(b.title)
         if (sortBy === "seats") return b.availableSeats - a.availableSeats
         return a.date.localeCompare(b.date)
     })
 
-    // Third conditional pattern: a precomputed JSX variable
+    // Precomputed JSX variable (third conditional rendering pattern)
     let content
     if (sorted.length === 0) {
         content = (
@@ -82,6 +89,8 @@ export default function App() {
             </header>
 
             <main className="mx-auto max-w-5xl p-4">
+                <AddOpportunityForm categories={categories} onAdd={addOpportunity} />
+
                 <OpportunityFilters
                     search={search} onSearchChange={setSearch}
                     category={category} onCategoryChange={setCategory} categories={categories}

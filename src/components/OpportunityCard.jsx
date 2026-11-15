@@ -15,7 +15,7 @@ export default function OpportunityCard({ opportunity, isSaved, onToggleSave }) 
 
     return (
         <article className={`flex flex-col rounded-xl border border-slate-200 border-t-4 ${accent} bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md`}>
-            <div className="mb-3 flex min-h-6 flex-wrap gap-2">
+            <div className="mb-3 flex min-h-7 flex-wrap items-center gap-2">
                 {featured && <Badge color="amber">Featured</Badge>}
                 {price === 0 && <Badge color="green">Free</Badge>}
                 {availableSeats === 0 && <Badge color="red">Fully booked</Badge>}
