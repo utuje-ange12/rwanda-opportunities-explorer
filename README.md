@@ -4,7 +4,6 @@ A responsive React app that helps learners discover workshops, career events,
 community activities and short courses across Rwanda. All data is sample content
 stored in the frontend. There is no backend, API or database.
 
-**Live site:** _add your URL here if you deploy_
 
 ## Features
 
