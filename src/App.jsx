@@ -66,26 +66,37 @@ export default function App() {
     }
 
     return (
-        <main className="mx-auto max-w-5xl p-4">
-            <h1 className="mb-1 text-2xl font-bold text-teal-700">Rwanda Opportunities Explorer</h1>
-            <p className="mb-4 text-sm text-slate-600">
-                All listings are sample content. Saved: {savedIds.length}
-            </p>
+        <div className="min-h-screen bg-slate-50">
+            <header className="bg-gradient-to-r from-teal-800 to-emerald-600 text-white">
+                <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-8">
+                    <div>
+                        <h1 className="text-3xl font-bold">Rwanda Opportunities Explorer</h1>
+                        <p className="mt-1 text-sm text-teal-50">
+                            Workshops, career events, community activities and short courses. All listings are sample content.
+                        </p>
+                    </div>
+                    <span className="rounded-full bg-white/20 px-4 py-1.5 text-sm font-semibold">
+            Saved: {savedIds.length}
+          </span>
+                </div>
+            </header>
 
-            <OpportunityFilters
-                search={search} onSearchChange={setSearch}
-                category={category} onCategoryChange={setCategory} categories={categories}
-                sortBy={sortBy} onSortChange={setSortBy}
-                availableOnly={availableOnly} onAvailableOnlyChange={setAvailableOnly}
-                savedOnly={savedOnly} onSavedOnlyChange={setSavedOnly}
-                onReset={resetFilters}
-            />
+            <main className="mx-auto max-w-5xl p-4">
+                <OpportunityFilters
+                    search={search} onSearchChange={setSearch}
+                    category={category} onCategoryChange={setCategory} categories={categories}
+                    sortBy={sortBy} onSortChange={setSortBy}
+                    availableOnly={availableOnly} onAvailableOnlyChange={setAvailableOnly}
+                    savedOnly={savedOnly} onSavedOnlyChange={setSavedOnly}
+                    onReset={resetFilters}
+                />
 
-            <p className="mb-3 text-sm font-medium text-slate-700" aria-live="polite">
-                Showing {sorted.length} of {opportunities.length} opportunities
-            </p>
+                <p className="mb-3 text-sm font-medium text-slate-700" aria-live="polite">
+                    Showing {sorted.length} of {opportunities.length} opportunities
+                </p>
 
-            {content}
-        </main>
+                {content}
+            </main>
+        </div>
     )
 }
