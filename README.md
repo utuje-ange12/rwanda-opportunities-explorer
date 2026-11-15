@@ -1,16 +1,67 @@
-# React + Vite
+# Rwanda Opportunities Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive React app that helps learners discover workshops, career events,
+community activities and short courses across Rwanda. All data is sample content
+stored in the frontend. There is no backend, API or database.
 
-Currently, two official plugins are available:
+**Live site:** _add your URL here if you deploy_
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- 12 sample opportunities across 4 categories and 4 cities (Kigali, Huye, Musanze, Rubavu)
+- Live search by title or city (case-insensitive, extra spaces trimmed)
+- Category filter, "Available only" and "Saved only" checkboxes, all working together
+- Sorting by earliest date, title A to Z, or most available places
+- Result count and a Reset filters button
+- Save / Unsave on every card with a live saved counter
+- Controlled Add Opportunity form with validation and helpful messages
+- Badges for Featured, Free and Fully booked
+- Empty-results message with a reset action
+- Demo loading and error states
+- Responsive, accessible layout built with Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+React (function components, JSX, props, `useState`), Vite, Tailwind CSS v4.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Setup
+
+```bash
+git clone https://github.com/utuje-ange12/rwanda-opportunities-explorer.git
+cd rwanda-opportunities-explorer
+npm install
+npm run dev      # start the dev server at http://localhost:5173
+npm run build    # production build
+```
+
+## Project structure
+
+```
+src/
+  components/
+    Button.jsx             Reusable button (variants, safe default type)
+    Badge.jsx              Reusable colored label
+    OpportunityCard.jsx    One opportunity, with conditional badges and Save button
+    OpportunityList.jsx    Renders cards with map() and stable id keys
+    OpportunityFilters.jsx Search, category, sort, checkboxes, reset
+    AddOpportunityForm.jsx Controlled form with validation
+  data/seedOpportunities.js  Sample data
+  App.jsx                  State, derived filtering and sorting, layout
+```
+
+## Component descriptions
+
+- **App**: owns all state (opportunities, saved IDs, filters, demo status) and
+  derives the visible list during render.
+- **OpportunityFilters**: displays the controls; all changes go up through callback props.
+- **OpportunityList / OpportunityCard**: receive data through props and report Save clicks upward.
+- **AddOpportunityForm**: keeps its own form state, validates, and calls `onAdd` with a new record.
+- **Button / Badge**: small reusable props-driven components.
+
+## Key concepts demonstrated
+
+- `map()` with stable unique `id` keys (never array index)
+- Immutable updates: spread, `filter()`, and sorting a copy (`[...visible].sort(...)`)
+- Conditional rendering: ternary, `&&`, and precomputed JSX variables, plus lookup objects
+- `=== 0` and `> 0` checks so no stray "0" is rendered
+- Controlled inputs, `preventDefault()`, and associated labels for accessibility
